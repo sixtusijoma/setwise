@@ -1,0 +1,369 @@
+<!doctype html>
+<!-- Design board for docs/design.md. Rendered to PNG by docs/mockups/render.mjs.
+     Static reference only: the app implements these with the tokens in docs/design.md. -->
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@1.53.0/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --bg: #F4F2EE; --surface: #FFFFFF; --sunken: #ECE9E3; --hairline: #E3DFD8;
+    --ink: #141412; --ink-2: #6B6862; --ink-3: #A19D95;
+    --accent: #E8551E; --accent-ink: #FFFFFF; --accent-soft: #FBE6DC;
+    --cardio: #2C6BED; --cardio-ink: #FFFFFF; --cardio-soft: #DFE8FC; --pr: #A87A12; --pr-soft: #F5EBD3;
+    --tile: #F4F2EE; --shadow: 0 8px 24px rgba(20, 20, 18, .10);
+  }
+  .dark {
+    --bg: #0E0E0D; --surface: #1A1A18; --sunken: #242421; --hairline: #2B2A27;
+    --ink: #F2F0EB; --ink-2: #A3A099; --ink-3: #6E6B65;
+    --accent: #FF6B33; --accent-ink: #160A04; --accent-soft: #3A1E12;
+    --cardio: #6A97FF; --cardio-ink: #06122E; --cardio-soft: #172447; --pr: #E2B44A; --pr-soft: #352A10;
+    --tile: #EDEAE4; --shadow: 0 8px 24px rgba(0, 0, 0, .5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #D9D5CE; font-family: Geist, system-ui, sans-serif; display: flex; flex-wrap: wrap; gap: 40px; padding: 40px; }
+  .phone {
+    width: 393px; height: 852px; background: var(--bg); color: var(--ink); position: relative; overflow: hidden;
+    border-radius: 48px; font-size: 15px; line-height: 20px; -webkit-font-smoothing: antialiased;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+  .serif { font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; }
+  .status { height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 6px 34px 0; font-weight: 600; font-size: 16px; }
+  .status .r { display: flex; gap: 6px; align-items: center; }
+  .status svg { width: 17px; height: 17px; }
+  .home-ind { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: var(--ink); opacity: .9; }
+  .content { padding: 0 20px; }
+  .overline { font-size: 12px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+  .display { font-size: 44px; line-height: 46px; }
+  .title { font-size: 30px; line-height: 34px; }
+  .h { font-weight: 600; font-size: 17px; line-height: 22px; }
+  .muted { color: var(--ink-2); }
+  .faint { color: var(--ink-3); }
+  .foot { font-size: 13px; line-height: 18px; }
+  .card { background: var(--surface); border-radius: 20px; border: 1px solid var(--hairline); }
+  .row { display: flex; align-items: center; }
+  .between { justify-content: space-between; }
+  .gap8 { gap: 8px; } .gap12 { gap: 12px; } .gap16 { gap: 16px; }
+  .btn { height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 17px; }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-secondary { background: var(--sunken); color: var(--ink); }
+  .btn svg { width: 20px; height: 20px; stroke-width: 2.25; }
+  .pill { height: 32px; padding: 0 14px; border-radius: 999px; display: inline-flex; align-items: center; font-weight: 500; font-size: 14px; background: var(--sunken); color: var(--ink-2); white-space: nowrap; }
+  .pill.on { background: var(--ink); color: var(--bg); }
+  .seg { display: flex; background: var(--sunken); border-radius: 12px; padding: 3px; }
+  .seg div { flex: 1; text-align: center; height: 32px; line-height: 32px; border-radius: 9px; font-size: 14px; font-weight: 500; color: var(--ink-2); }
+  .seg .on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .thumb { width: 48px; height: 48px; border-radius: 14px; background: var(--tile) center 45%/155% no-repeat; flex-shrink: 0; }
+  .thumb.sm { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--surface); }
+  .mono { display: flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px; }
+  .icon-tile { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: var(--cardio-soft); color: var(--cardio); flex-shrink: 0; }
+  .icon-tile svg { width: 22px; height: 22px; }
+  .tabbar { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; background: var(--surface); border-top: 1px solid var(--hairline); display: flex; justify-content: space-around; padding-top: 8px; }
+  .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 500; color: var(--ink-3); width: 72px; }
+  .tab svg { width: 24px; height: 24px; stroke-width: 1.9; }
+  .tab.on { color: var(--ink); }
+  .divider { height: 1px; background: var(--hairline); }
+  .iconbtn { width: 36px; height: 36px; border-radius: 18px; background: var(--sunken); display: flex; align-items: center; justify-content: center; color: var(--ink); }
+  .iconbtn svg { width: 18px; height: 18px; }
+  i[data-lucide] { display: inline-flex; }
+</style>
+</head>
+<body>
+
+<!-- 1. Sign in -->
+<section class="phone" id="sign-in">
+  <div class="status"><span class="num">9:41</span><span class="r"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+  <div class="content" style="padding-top: 72px;">
+    <div class="thumb" style="width: 96px; height: 96px; border-radius: 28px; background-image: url(img/quads.jpg); background-size: 130%;"></div>
+    <div class="serif" style="font-size: 64px; line-height: 64px; margin-top: 28px;">Setwise</div>
+    <div class="serif muted" style="font-size: 26px; line-height: 32px; font-style: italic; margin-top: 6px;">Every set, accounted for.</div>
+  </div>
+  <div class="content" style="position: absolute; bottom: 48px; left: 0; right: 0;">
+    <div class="btn" style="background: var(--ink); color: var(--bg);"><i data-lucide="apple"></i>Continue with Apple</div>
+    <div class="row gap12" style="margin: 20px 0;"><div class="divider" style="flex:1"></div><span class="foot faint">or with email</span><div class="divider" style="flex:1"></div></div>
+    <div class="card" style="border-radius: 16px;">
+      <div style="padding: 14px 16px;" class="muted">sixtus@example.com</div>
+      <div class="divider"></div>
+      <div style="padding: 14px 16px; letter-spacing: .2em;" class="faint">••••••••••</div>
+    </div>
+    <div class="btn btn-primary" style="margin-top: 12px;">Sign in</div>
+    <div class="foot muted" style="text-align: center; margin-top: 16px;">New here? <span style="color: var(--ink); font-weight: 600;">Create an account</span></div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<!-- 2. Today, empty -->
+<section class="phone" id="today-empty">
+  <div class="status"><span class="num">9:41</span><span class="r"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+  <div class="content" style="padding-top: 12px;">
+    <div class="overline">Thursday · Oct 8</div>
+    <div class="serif display" style="margin-top: 4px;">This week</div>
+    <div class="row between num" style="margin-top: 20px;">
+      <script>document.write(['M','T','W','T','F','S','S'].map((d,i)=>`<div style="width:44px;text-align:center"><div class="foot faint">${d}</div><div style="margin:8px auto 0;width:10px;height:10px;border-radius:5px;${i===3?'border:2px solid var(--ink)':'background:var(--hairline)'}"></div></div>`).join(''))</script>
+    </div>
+    <div style="margin-top: 56px; text-align: center;">
+      <div class="thumb" style="width: 200px; height: 200px; border-radius: 40px; margin: 0 auto; background-image: url(img/chest.jpg); background-size: 115%;"></div>
+      <div class="serif title" style="margin-top: 28px;">Your first session<br/>starts here.</div>
+      <div class="muted" style="margin: 10px 24px 0;">Log a lift or a run and your week fills in — volume, minutes, and new records.</div>
+    </div>
+    <div class="btn btn-primary" style="margin-top: 32px;"><i data-lucide="plus"></i>Start workout</div>
+    <div class="btn btn-secondary" style="margin-top: 10px;"><i data-lucide="footprints"></i>Log cardio</div>
+  </div>
+  <div class="tabbar">
+    <div class="tab on"><i data-lucide="sun"></i>Today</div><div class="tab"><i data-lucide="calendar-days"></i>History</div><div class="tab"><i data-lucide="trending-up"></i>Progress</div><div class="tab"><i data-lucide="circle-user"></i>Profile</div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<!-- 3. Today -->
+<section class="phone" id="today">
+  <div class="status"><span class="num">9:41</span><span class="r"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+  <div class="content" style="padding-top: 12px;">
+    <div class="overline">Thursday · Oct 8</div>
+    <div class="serif display" style="margin-top: 4px;">This week</div>
+    <div class="row between num" style="margin-top: 20px;">
+      <script>
+        const days=[['M','s'],['T',''],['W','c'],['T','s today'],['F','f'],['S','f'],['S','f']];
+        document.write(days.map(([d,k])=>{const bg=k.startsWith('s')?'var(--accent)':k==='c'?'var(--cardio)':'var(--hairline)';const ring=k.includes('today')?'outline:2px solid var(--ink);outline-offset:3px;':'';return `<div style="width:44px;text-align:center"><div class="foot ${k.includes('today')?'':'faint'}" style="${k.includes('today')?'font-weight:600':''}">${d}</div><div style="margin:8px auto 0;width:10px;height:10px;border-radius:5px;background:${k==='f'?'transparent':bg};${k==='f'?'border:1.5px dashed var(--hairline)':''};${ring}"></div></div>`}).join(''))
+      </script>
+    </div>
+    <div class="card" style="margin-top: 20px; padding: 18px; display: grid; grid-template-columns: 1fr 1fr; row-gap: 18px;">
+      <div><div class="foot muted">Workouts</div><div class="num" style="font-size: 30px; line-height: 36px; font-weight: 600; letter-spacing: -.02em;">3</div><div class="foot" style="color: var(--accent); font-weight: 500;">+1 vs last week</div></div>
+      <div><div class="foot muted">Volume</div><div class="num" style="font-size: 30px; line-height: 36px; font-weight: 600; letter-spacing: -.02em;">24,860<span class="muted" style="font-size: 15px; font-weight: 500;"> lb</span></div><div class="foot" style="color: var(--accent); font-weight: 500;">+12%</div></div>
+      <div><div class="foot muted">Cardio</div><div class="num" style="font-size: 30px; line-height: 36px; font-weight: 600; letter-spacing: -.02em;">74<span class="muted" style="font-size: 15px; font-weight: 500;"> min</span></div><div class="foot faint">2 sessions</div></div>
+      <div><div class="foot muted">Distance</div><div class="num" style="font-size: 30px; line-height: 36px; font-weight: 600; letter-spacing: -.02em;">6.2<span class="muted" style="font-size: 15px; font-weight: 500;"> mi</span></div><div class="foot faint">avg 8:52 /mi</div></div>
+    </div>
+    <div class="row gap12" style="margin-top: 14px;">
+      <div class="btn btn-primary" style="flex: 1.4;"><i data-lucide="plus"></i>Start workout</div>
+      <div class="btn btn-secondary" style="flex: 1;"><i data-lucide="footprints"></i>Cardio</div>
+    </div>
+    <div class="row gap12" style="margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: var(--pr-soft);">
+      <i data-lucide="award" style="color: var(--pr);"></i>
+      <div class="foot"><span style="font-weight: 600;">New record</span> · Bench Press <span class="num">225 lb × 5</span><br/><span class="muted">Est. 1RM <span class="num">262 lb</span></span></div>
+    </div>
+    <div class="row between" style="margin-top: 22px;"><div class="h">Recent</div><div class="foot muted">See all</div></div>
+    <div class="card" style="margin-top: 10px;">
+      <div class="row gap12" style="padding: 14px;">
+        <div class="thumb" style="background-image: url(img/chest.jpg);"></div>
+        <div style="flex: 1;"><div style="font-weight: 600;">Thursday Push</div><div class="foot muted num">Today · 58 min · 18 sets · 9,420 lb</div></div>
+        <i data-lucide="chevron-right" class="faint"></i>
+      </div>
+      <div class="divider" style="margin-left: 74px;"></div>
+      <div class="row gap12" style="padding: 14px;">
+        <div class="icon-tile"><i data-lucide="footprints"></i></div>
+        <div style="flex: 1;"><div style="font-weight: 600;">Morning run</div><div class="foot muted num">Wed · 3.1 mi · 26:40 · <span style="color: var(--cardio); font-weight: 500;">8:36 /mi</span></div></div>
+        <i data-lucide="chevron-right" class="faint"></i>
+      </div>
+    </div>
+  </div>
+  <div class="tabbar">
+    <div class="tab on"><i data-lucide="sun"></i>Today</div><div class="tab"><i data-lucide="calendar-days"></i>History</div><div class="tab"><i data-lucide="trending-up"></i>Progress</div><div class="tab"><i data-lucide="circle-user"></i>Profile</div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<!-- 4. Active workout -->
+<section class="phone" id="active-workout">
+  <div class="status"><span class="num">9:41</span><span class="r"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+  <div class="content row between" style="height: 44px;">
+    <div class="iconbtn"><i data-lucide="chevron-down"></i></div>
+    <div class="row gap8 num" style="font-weight: 600; font-size: 17px;"><span style="width: 8px; height: 8px; border-radius: 4px; background: var(--accent);"></span>42:18</div>
+    <div class="pill" style="background: var(--accent); color: var(--accent-ink); font-weight: 600; height: 36px; padding: 0 18px;">Finish</div>
+  </div>
+  <div class="content" style="margin-top: 10px;">
+    <div class="row gap8"><div class="serif title">Thursday Push</div><i data-lucide="pencil" class="faint" style="width: 16px;"></i></div>
+    <div class="foot muted num" style="margin-top: 2px;">7 of 9 sets · 6,210 lb</div>
+
+    <div class="card" style="margin-top: 16px; padding: 14px 0 6px;">
+      <div class="row gap12" style="padding: 0 14px;">
+        <div class="thumb" style="background-image: url(img/chest.jpg);"></div>
+        <div style="flex: 1;"><div style="font-weight: 600;">Bench Press</div><div class="foot muted">Barbell · Chest</div></div>
+        <i data-lucide="ellipsis" class="muted"></i>
+      </div>
+      <div class="row num foot faint" style="padding: 14px 14px 6px; font-weight: 500; letter-spacing: .04em;">
+        <div style="width: 36px;">SET</div><div style="flex: 1;">PREVIOUS</div><div style="width: 72px; text-align: center;">LB</div><div style="width: 60px; text-align: center;">REPS</div><div style="width: 40px;"></div>
+      </div>
+      <script>
+        const sets=[[1,'135 × 8','135','8','done'],[2,'185 × 5','185','5','done'],[3,'205 × 5','225','5','pr'],[4,'205 × 5','225','','focus']];
+        document.write(sets.map(([n,prev,w,r,s])=>{
+          const done=s==='done'||s==='pr';
+          const field=(v,f)=>`<div style="height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;${done?'':'background:var(--sunken);'}${f?'box-shadow:inset 0 0 0 2px var(--accent);':''}">${v||'<span class=faint>5</span>'}</div>`;
+          return `<div class="row num" style="padding:4px 14px;${done?'background:color-mix(in srgb,var(--accent-soft) 55%,transparent)':''}">
+            <div style="width:36px;font-weight:600;">${s==='pr'?'<span style="color:var(--pr)">'+n+'</span>':n}</div>
+            <div style="flex:1" class="muted">${prev}</div>
+            <div style="width:72px;padding:0 6px">${field(w,s==='focus')}</div>
+            <div style="width:60px;padding:0 6px">${field(r)}</div>
+            <div style="width:40px;display:flex;justify-content:flex-end"><div style="width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;${done?'background:var(--accent);color:var(--accent-ink)':'background:var(--sunken);color:var(--ink-3)'}"><i data-lucide="check" style="width:18px;height:18px;stroke-width:3"></i></div></div>
+          </div>`}).join(''))
+      </script>
+      <div class="row gap8 foot" style="padding: 10px 14px 8px; font-weight: 600; color: var(--accent);"><i data-lucide="plus" style="width: 16px;"></i>Add set</div>
+    </div>
+
+    <div class="card" style="margin-top: 12px; padding: 14px;">
+      <div class="row gap12">
+        <div class="thumb mono">OP</div>
+        <div style="flex: 1;"><div style="font-weight: 600;">Overhead Press</div><div class="foot muted num">Barbell · Shoulders · 3 sets planned</div></div>
+        <i data-lucide="ellipsis" class="muted"></i>
+      </div>
+    </div>
+    <div class="btn btn-secondary" style="margin-top: 12px; border: 1.5px dashed var(--hairline); background: transparent;"><i data-lucide="plus"></i>Add exercise</div>
+  </div>
+  <div style="position: absolute; left: 20px; right: 20px; bottom: 34px;" class="row gap8">
+    <div class="card row" style="flex: 1; height: 52px; padding: 0 16px; justify-content: space-between; box-shadow: var(--shadow);">
+      <span class="foot muted">Rest</span><span class="num h">1:24</span><span class="foot" style="color: var(--accent); font-weight: 600;">+30s</span>
+    </div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<!-- 5. Exercise picker -->
+<section class="phone" id="exercise-picker">
+  <div style="height: 64px;"></div>
+  <div style="position: absolute; inset: 54px 0 0; background: var(--surface); border-radius: 24px 24px 0 0;">
+    <div style="width: 36px; height: 5px; border-radius: 3px; background: var(--hairline); margin: 8px auto 0;"></div>
+    <div class="content row between" style="margin-top: 12px;"><div class="serif title">Add exercise</div><div class="iconbtn"><i data-lucide="x"></i></div></div>
+    <div class="content" style="margin-top: 14px;">
+      <div class="row gap8" style="height: 44px; border-radius: 12px; background: var(--sunken); padding: 0 12px;">
+        <i data-lucide="search" class="muted" style="width: 18px;"></i><span>row</span><span style="width: 2px; height: 20px; background: var(--accent); margin-left: -6px;"></span>
+      </div>
+    </div>
+    <div class="row gap8" style="padding: 12px 20px; overflow: hidden;">
+      <span class="pill">All</span><span class="pill">Chest</span><span class="pill on">Back</span><span class="pill">Shoulders</span><span class="pill">Arms</span><span class="pill">Legs</span>
+    </div>
+    <div class="content overline" style="margin-top: 6px;">12 matches</div>
+    <script>
+      const ex=[['Barbell Row','Barbell','back.jpg','Last: 185 × 8'],['Pendlay Row','Barbell','back.jpg',''],['Seated Cable Row','Cable','back.jpg','Last: 140 × 10'],['One-Arm Dumbbell Row','Dumbbell','back.jpg',''],['T-Bar Row','Barbell','back.jpg',''],['Chest-Supported Dumbbell Row','Dumbbell','back.jpg','']];
+      document.write(ex.map(([n,e,img,last])=>`<div class="row gap12" style="padding:10px 20px"><div class="thumb" style="background-image:url(img/${img})"></div><div style="flex:1"><div style="font-weight:600">${n}</div><div class="foot muted num">${e}${last?' · '+last:''}</div></div><i data-lucide="plus" class="muted"></i></div>`).join(''))
+    </script>
+    <div class="row gap12" style="padding: 10px 20px;">
+      <div class="thumb mono"><i data-lucide="plus"></i></div>
+      <div style="flex: 1;"><div style="font-weight: 600;">Create “row”</div><div class="foot muted">Add a custom exercise</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Log cardio -->
+<section class="phone" id="log-cardio">
+  <div style="position: absolute; inset: 54px 0 0; background: var(--surface); border-radius: 24px 24px 0 0;">
+    <div style="width: 36px; height: 5px; border-radius: 3px; background: var(--hairline); margin: 8px auto 0;"></div>
+    <div class="content row between" style="margin-top: 12px;"><div class="serif title">Log cardio</div><div class="iconbtn"><i data-lucide="x"></i></div></div>
+    <div class="content" style="margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+      <script>
+        const acts=[['footprints','Run',1],['footprints','Walk'],['mountain','Hike'],['bike','Cycle'],['sailboat','Row'],['activity','Elliptical'],['chevrons-up','Stairs'],['waves','Swim']];
+        document.write(acts.map(([ic,l,on])=>`<div style="height:72px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:500;${on?'background:var(--cardio);color:var(--cardio-ink)':'background:var(--sunken);color:var(--ink-2)'}"><i data-lucide="${ic}" style="width:22px;height:22px"></i>${l}</div>`).join(''))
+      </script>
+    </div>
+    <div class="content" style="margin-top: 22px;">
+      <div class="overline">Duration · required</div>
+      <div class="row num" style="gap: 6px; margin-top: 6px; align-items: baseline;">
+        <span style="font-size: 56px; line-height: 60px; font-weight: 600; letter-spacing: -.03em;">26</span><span class="muted h">min</span>
+        <span style="font-size: 56px; line-height: 60px; font-weight: 600; letter-spacing: -.03em; margin-left: 10px;">40</span><span class="muted h">sec</span>
+      </div>
+      <div class="card" style="margin-top: 18px; border-radius: 16px;">
+        <div class="row between" style="padding: 14px 16px;"><span>Distance</span><span class="num h">3.10 <span class="muted" style="font-weight: 500;">mi</span></span></div>
+        <div class="divider"></div>
+        <div class="row between" style="padding: 14px 16px;"><span>Started</span><span class="muted">Today, 7:05 AM</span></div>
+        <div class="divider"></div>
+        <div class="row between muted" style="padding: 14px 16px;"><span>Calories, heart rate, notes</span><i data-lucide="chevron-down" style="width: 18px;"></i></div>
+      </div>
+      <div class="row between" style="margin-top: 14px; padding: 16px; border-radius: 16px; background: var(--cardio-soft);">
+        <div><div class="foot" style="color: var(--cardio); font-weight: 500;">Pace</div><div class="num" style="font-size: 30px; line-height: 36px; font-weight: 600; color: var(--cardio);">8:36 <span style="font-size: 15px; font-weight: 500;">/mi</span></div></div>
+        <div style="text-align: right;" class="foot muted num">5.34 km<br/>5:20 /km</div>
+      </div>
+    </div>
+    <div class="content" style="position: absolute; left: 0; right: 0; bottom: 34px;">
+      <div class="btn" style="background: var(--cardio); color: var(--cardio-ink);">Save run</div>
+    </div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<!-- 7. History -->
+<section class="phone" id="history">
+  <div class="status"><span class="num">9:41</span><span class="r"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+  <div class="content" style="padding-top: 12px;">
+    <div class="serif display">History</div>
+    <div class="seg" style="margin-top: 16px;"><div class="on">All</div><div>Strength</div><div>Cardio</div></div>
+    <div class="row between" style="margin-top: 22px;"><div class="overline">This week</div><div class="foot muted num">4 sessions · 24,860 lb</div></div>
+    <div class="card" style="margin-top: 10px; padding: 14px;">
+      <div class="row between"><div><div style="font-weight: 600;">Thursday Push</div><div class="foot muted num">Today · 58 min</div></div>
+        <div class="row" style="margin-right: 6px;"><div class="thumb sm" style="background-image: url(img/chest.jpg);"></div><div class="thumb sm mono" style="margin-left: -8px; font-size: 10px;">OP</div><div class="thumb sm" style="margin-left: -8px; background-image: url(img/back.jpg);"></div></div></div>
+      <div class="row num foot" style="gap: 18px; margin-top: 12px;"><span><span class="muted">Sets</span> <b>18</b></span><span><span class="muted">Volume</span> <b>9,420 lb</b></span><span style="color: var(--pr); font-weight: 600;" class="row gap8"><i data-lucide="award" style="width: 14px;"></i>1 PR</span></div>
+    </div>
+    <div class="card row gap12" style="margin-top: 10px; padding: 14px;">
+      <div class="icon-tile"><i data-lucide="footprints"></i></div>
+      <div style="flex: 1;"><div style="font-weight: 600;">Run</div><div class="foot muted num">Wed · 3.1 mi · 26:40</div></div>
+      <div class="num" style="color: var(--cardio); font-weight: 600;">8:36<span class="foot"> /mi</span></div>
+    </div>
+    <div class="card" style="margin-top: 10px; padding: 14px;">
+      <div class="row between"><div><div style="font-weight: 600;">Monday Legs</div><div class="foot muted num">Mon · 1 h 12 min</div></div>
+        <div class="row" style="margin-right: 6px;"><div class="thumb sm" style="background-image: url(img/quads.jpg);"></div><div class="thumb sm" style="margin-left: -8px; background-image: url(img/back.jpg);"></div></div></div>
+      <div class="row num foot" style="gap: 18px; margin-top: 12px;"><span><span class="muted">Sets</span> <b>21</b></span><span><span class="muted">Volume</span> <b>15,440 lb</b></span></div>
+    </div>
+    <div class="row between" style="margin-top: 22px;"><div class="overline">Sep 28 – Oct 4</div><div class="foot muted num">5 sessions · 22,190 lb</div></div>
+    <div class="card row gap12" style="margin-top: 10px; padding: 14px;">
+      <div class="icon-tile"><i data-lucide="bike"></i></div>
+      <div style="flex: 1;"><div style="font-weight: 600;">Cycle</div><div class="foot muted num">Sat · 12.4 mi · 48:10</div></div>
+    </div>
+  </div>
+  <div style="position: absolute; left: 12px; right: 12px; bottom: 92px; height: 56px; border-radius: 18px; background: var(--ink); color: var(--bg); box-shadow: var(--shadow); padding: 0 8px 0 16px;" class="row between">
+    <div class="row gap8"><span style="width: 8px; height: 8px; border-radius: 4px; background: var(--accent);"></span><span style="font-weight: 600;">Thursday Push</span><span class="num" style="opacity: .6;">42:18</span></div>
+    <div class="pill" style="background: var(--accent); color: var(--accent-ink); font-weight: 600;">Resume</div>
+  </div>
+  <div class="tabbar">
+    <div class="tab"><i data-lucide="sun"></i>Today</div><div class="tab on"><i data-lucide="calendar-days"></i>History</div><div class="tab"><i data-lucide="trending-up"></i>Progress</div><div class="tab"><i data-lucide="circle-user"></i>Profile</div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<!-- 8. Exercise progress -->
+<section class="phone" id="exercise-progress">
+  <div class="status"><span class="num">9:41</span><span class="r"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+  <div class="content row between" style="height: 44px;"><div class="iconbtn"><i data-lucide="chevron-left"></i></div><div class="thumb" style="width: 36px; height: 36px; border-radius: 10px; background-image: url(img/chest.jpg);"></div></div>
+  <div class="content" style="margin-top: 6px;">
+    <div class="serif display">Bench Press</div>
+    <div class="foot muted">Barbell · Chest · 24 sessions</div>
+    <div class="seg" style="margin-top: 16px;"><div>Top set</div><div class="on">Est. 1RM</div><div>Volume</div></div>
+    <div class="row between" style="margin-top: 18px; align-items: flex-end;">
+      <div><div class="num" style="font-size: 56px; line-height: 58px; font-weight: 600; letter-spacing: -.03em;">262<span class="muted" style="font-size: 20px; font-weight: 500;"> lb</span></div>
+        <div class="foot num" style="color: var(--accent); font-weight: 600;">▲ 18 lb <span class="muted" style="font-weight: 400;">in 3 months</span></div></div>
+    </div>
+  </div>
+  <div style="margin-top: 14px; position: relative;">
+    <svg width="393" height="190" viewBox="0 0 393 190">
+      <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".28"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+      <g stroke="var(--hairline)" stroke-width="1"><line x1="20" x2="373" y1="30" y2="30"/><line x1="20" x2="373" y1="90" y2="90"/><line x1="20" x2="373" y1="150" y2="150"/></g>
+      <g font-size="11" fill="var(--ink-3)" font-family="Geist"><text x="373" y="25" text-anchor="end">270</text><text x="373" y="85" text-anchor="end">250</text><text x="373" y="145" text-anchor="end">230</text></g>
+      <path id="area" fill="url(#g)"/><path id="line" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+      <g id="dots"></g>
+      <line x1="300" x2="300" y1="18" y2="160" stroke="var(--ink-3)" stroke-dasharray="3 3"/>
+      <g font-size="11" fill="var(--ink-3)" font-family="Geist"><text x="24" y="178">Jul</text><text x="138" y="178">Aug</text><text x="252" y="178">Sep</text><text x="345" y="178">Oct</text></g>
+    </svg>
+    <div class="num" style="position: absolute; left: 238px; top: -6px; background: var(--ink); color: var(--bg); border-radius: 10px; padding: 4px 10px; font-size: 13px; font-weight: 600;">Sep 24 · 255 lb</div>
+    <script>
+      const pts=[[24,128],[52,132],[80,118],[108,120],[136,110],[164,104],[192,108],[220,92],[248,86],[276,80],[300,72],[328,58],[356,48]];
+      const d='M'+pts.map(p=>p.join(',')).join(' L');
+      document.getElementById('line').setAttribute('d',d);
+      document.getElementById('area').setAttribute('d',d+' L356,160 L24,160 Z');
+      document.getElementById('dots').innerHTML=pts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="${i===pts.length-1||x===300?5:3}" fill="${x===300?'var(--bg)':'var(--accent)'}" stroke="var(--accent)" stroke-width="2"/>`).join('');
+    </script>
+  </div>
+  <div class="row gap8" style="padding: 0 20px; margin-top: 2px;"><span class="pill">1M</span><span class="pill on">3M</span><span class="pill">6M</span><span class="pill">1Y</span><span class="pill">All</span></div>
+  <div class="content" style="margin-top: 20px;">
+    <div class="h">Records</div>
+    <div class="row gap8" style="margin-top: 10px;">
+      <div class="card" style="flex: 1; padding: 12px;"><div class="foot muted">Heaviest</div><div class="num h" style="margin-top: 2px;">235 × 2</div></div>
+      <div class="card" style="flex: 1; padding: 12px;"><div class="foot muted">Best e1RM</div><div class="num h" style="margin-top: 2px;">262</div></div>
+      <div class="card" style="flex: 1; padding: 12px;"><div class="foot muted">Best volume</div><div class="num h" style="margin-top: 2px;">4,580</div></div>
+    </div>
+    <div class="row between" style="margin-top: 20px;"><div class="h">Oct 8</div><div class="foot muted num">4 sets · 3,280 lb</div></div>
+    <div class="foot muted num" style="margin-top: 4px;">135 × 8 · 185 × 5 · <span style="color: var(--pr); font-weight: 600;">225 × 5</span> · 225 × 5</div>
+  </div>
+  <div class="home-ind"></div>
+</section>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
