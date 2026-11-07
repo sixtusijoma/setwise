@@ -31,15 +31,6 @@ Setwise logs exercises set by set (weight × reps, timed holds, weighted-time ca
 
 More stills in [`docs/demo/`](docs/demo/): Save pill, template start, tutorial, Farmer’s Carry progress, active workout sheet.
 
-Short clips (local mode, no account data):
-
-<p>
-  <a href="docs/demo/video-01-live-bar-tappable.mp4"><img src="docs/demo/video-01-live-bar-tappable.gif" width="180" alt="Live bar opens the workout" /></a>
-  <a href="docs/demo/video-03-dead-hang-timed-set.mp4"><img src="docs/demo/video-03-dead-hang-timed-set.gif" width="180" alt="Timed Dead Hang set" /></a>
-</p>
-
-Left: tapping the live bar opens the workout. Right: logging a timed Dead Hang set. Click either clip for the full-quality MP4.
-
 Demo media was captured in local mode with synthetic lifts (no real names, emails, or account data). Podcast/delivery notes from the capture session are intentionally omitted.
 
 ## Setup
