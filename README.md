@@ -67,11 +67,11 @@ npm run test:db        # pgTAP (local Postgres)
 
 ## Layout
 
-- `app/` — Expo Router screens
-- `src/` — UI, workout draft, data repos, theme
-- `supabase/` — migrations + RLS tests
-- `docs/` — architecture, security, design, demo media
-- `DECISIONS.md` — stack and product decisions
+- `app/`: Expo Router screens
+- `src/`: UI, workout draft, data repos, theme
+- `supabase/`: migrations + RLS tests
+- `docs/`: architecture, security, design, demo media
+- `DECISIONS.md`: stack and product decisions
 
 ## Privacy
 
