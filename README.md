@@ -4,6 +4,10 @@ Personal strength-tracking / set-by-set lifting app for Sixtus’s own use. Most
 
 Setwise logs exercises set by set (weight × reps, timed holds, weighted-time carries), cardio sessions, templates and built-in programs, progress charts, and PRs. With no Supabase URL configured it runs in **local mode** and keeps data on the device.
 
+## Why I made this
+
+I wanted a way to log my fitness journey and track my strength and lifts over time, in a free app with no ads.
+
 ## Features
 
 - Active workout with Done checkmarks, steppers, duplicate set, mid-workout Save
